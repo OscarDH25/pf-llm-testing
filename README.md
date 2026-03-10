@@ -29,3 +29,23 @@ The repository is currently in the project definition phase. The first milestone
 ## Documentation
 
 - [MVP scope](docs/mvp-scope.md)
+
+## Current project structure
+
+- `app/`: backend application
+- `docs/`: project documentation
+- `tests/`: placeholder for automated test suites
+
+## Local run
+
+From the `app` folder:
+
+```bash
+npm start
+```
+
+Then check:
+
+```bash
+GET /health
+```

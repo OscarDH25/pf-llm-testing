@@ -1,0 +1,13 @@
+{
+  "name": "pf-llm-testing-app",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Initial backend for the pf_llm_testing portfolio project.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
