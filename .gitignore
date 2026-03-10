@@ -12,4 +12,5 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+notes/personal-cheatsheet.md
 
