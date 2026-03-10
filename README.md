@@ -2,30 +2,30 @@
 
 Portfolio project focused on AI testing, LLM evaluation, QA automation, and CI/CD.
 
-## Goal
+## Project vision
 
-Build a professional-grade personal project that demonstrates:
+The goal of this repository is to build a small but realistic AI system and validate it with a professional QA approach. The project is designed to showcase practical skills in automated testing for LLM-based applications rather than just building another demo chatbot.
 
-- QA automation practices for AI systems
+## What this project aims to demonstrate
+
+- QA automation for AI-powered systems
 - API and end-to-end testing
-- LLM response evaluation
+- LLM response evaluation and regression testing
 - CI/CD integration
-- Docker and Kubernetes readiness
+- Containerized development workflow
+- Kubernetes readiness for later stages
 
-## Repository Status
+## Current status
 
-This repository is in its initial setup phase. The first milestone is to define the project scope, architecture, and development workflow before implementing features.
+The repository is currently in the project definition phase. The first milestone is to define a realistic MVP, the initial architecture, and the development plan before implementation starts.
 
-## Branching Strategy
+## Working model
 
 - `main`: stable branch
 - `feature/<name>`: new functionality
-- `chore/<name>`: maintenance, tooling, docs, CI
+- `chore/<name>`: maintenance, docs, tooling, CI
 - `fix/<name>`: bug fixes
 
-## First Milestones
+## Documentation
 
-1. Define the project scope and MVP
-2. Choose the final stack
-3. Create the initial project skeleton
-4. Add the first automated tests
+- [MVP scope](docs/mvp-scope.md)
