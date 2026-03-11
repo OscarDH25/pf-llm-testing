@@ -13,4 +13,6 @@ Thumbs.db
 .env.*
 !.env.example
 notes/personal-cheatsheet.md
-
+node_modules/
+test-results/
+playwright-report/

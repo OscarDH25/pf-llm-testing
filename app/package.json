@@ -5,7 +5,11 @@
   "description": "Initial backend for the pf_llm_testing portfolio project.",
   "main": "src/server.js",
   "scripts": {
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "test:api": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.54.2"
   },
   "engines": {
     "node": ">=20.0.0"
