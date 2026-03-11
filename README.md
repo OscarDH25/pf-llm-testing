@@ -35,13 +35,14 @@ The repository is currently in the project definition phase. The first milestone
 
 - `app/`: backend application
 - `docs/`: project documentation
-- `tests/`: placeholder for automated test suites
+- `tests/`: high-level testing documentation
 
 ## Local run
 
 From the `app` folder:
 
 ```bash
+npm install
 npm start
 ```
 
@@ -69,4 +70,14 @@ Invoke-WebRequest -UseBasicParsing `
   -Uri http://127.0.0.1:3000/ask `
   -ContentType "application/json" `
   -Body $body
+```
+
+## Current testing status
+
+The repository now includes a first API test foundation with Playwright for the existing endpoints.
+
+Run the current API test suite from the `app` folder:
+
+```bash
+npm run test:api
 ```
