@@ -28,6 +28,7 @@ The repository is currently in the project definition phase. The first milestone
 
 ## Documentation
 
+- [API contract](docs/api-contract.md)
 - [MVP scope](docs/mvp-scope.md)
 
 ## Current project structure
@@ -48,4 +49,24 @@ Then check:
 
 ```bash
 GET /health
+```
+
+The application also exposes:
+
+```bash
+POST /ask
+```
+
+PowerShell example:
+
+```powershell
+$body = @{
+  question = "What is Docker?"
+} | ConvertTo-Json
+
+Invoke-WebRequest -UseBasicParsing `
+  -Method POST `
+  -Uri http://127.0.0.1:3000/ask `
+  -ContentType "application/json" `
+  -Body $body
 ```

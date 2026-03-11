@@ -1,0 +1,17 @@
+[
+  {
+    "id": "playwright",
+    "title": "Playwright overview",
+    "content": "Playwright is an end-to-end testing framework that can automate Chromium, Firefox, and WebKit. It also provides API testing capabilities."
+  },
+  {
+    "id": "docker",
+    "title": "Docker overview",
+    "content": "Docker packages applications and their dependencies into containers so they can run consistently across environments."
+  },
+  {
+    "id": "github-actions",
+    "title": "GitHub Actions overview",
+    "content": "GitHub Actions is a CI/CD platform that can run workflows for building, testing, and deploying software directly from a GitHub repository."
+  }
+]
