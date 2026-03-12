@@ -81,3 +81,5 @@ Run the current API test suite from the `app` folder:
 ```bash
 npm run test:api
 ```
+
+Playwright starts the local backend automatically for the API suite.

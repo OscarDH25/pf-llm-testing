@@ -21,6 +21,10 @@ Current coverage:
 - `GET /health`
 - `POST /ask` success path
 - `POST /ask` validation error
+- `POST /ask` empty string validation
+- `POST /ask` whitespace-only validation
+- `POST /ask` wrong type validation
+- `POST /ask` invalid JSON error
 - `POST /ask` no-match path
 
 Location:
@@ -35,3 +39,5 @@ Run from the `app` folder:
 npm install
 npm run test:api
 ```
+
+Playwright starts the local API automatically for this suite.
