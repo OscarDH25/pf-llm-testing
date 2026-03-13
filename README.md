@@ -37,6 +37,42 @@ The repository is currently in the project definition phase. The first milestone
 - `docs/`: project documentation
 - `tests/`: high-level testing documentation
 
+## Environment configuration
+
+The application supports a provider-based setup for future LLM integration.
+
+Current provider modes:
+
+- `mock`: local provider backed by the fixed knowledge base
+- `ollama`: real local provider using the Ollama HTTP API
+
+To create a local environment file inside `app/`:
+
+```bash
+copy .env.example .env
+```
+
+Then configure the local provider in `app/.env`:
+
+```env
+LLM_PROVIDER=ollama
+OLLAMA_BASE_URL=http://127.0.0.1:11434
+OLLAMA_MODEL=qwen2.5:3b
+```
+
+## Ollama setup
+
+To use the real local LLM provider, install Ollama and pull a model such as `qwen2.5:3b`.
+
+Typical commands:
+
+```bash
+ollama pull qwen2.5:3b
+ollama run qwen2.5:3b
+```
+
+If the Ollama provider is unavailable, the application falls back to the local `mock` provider so the API remains usable during development.
+
 ## Local run
 
 From the `app` folder:

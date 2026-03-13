@@ -9,7 +9,8 @@ Example response:
 ```json
 {
   "status": "ok",
-  "service": "pf-llm-testing-app"
+  "service": "pf-llm-testing-app",
+  "llmProvider": "ollama"
 }
 ```
 
@@ -40,7 +41,9 @@ Accepts a user question and returns an answer based on the fixed internal docume
   "source": {
     "id": "docker",
     "title": "Docker overview"
-  }
+  },
+  "providerUsed": "ollama",
+  "fallbackReason": null
 }
 ```
 
