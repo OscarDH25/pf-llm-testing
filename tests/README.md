@@ -45,3 +45,7 @@ Playwright starts the local API automatically for this suite.
 ## CI execution
 
 This suite is also executed in GitHub Actions through `.github/workflows/api-tests.yml`.
+
+At the moment the suite runs against the `mock` provider configuration, even if local manual development uses `ollama`.
+
+The mocked responses now include provider metadata so the suite can verify which provider handled the request.

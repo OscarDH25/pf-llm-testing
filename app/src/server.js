@@ -1,8 +1,10 @@
 const http = require("node:http");
-const knowledgeBase = require("../data/knowledge-base.json");
+const { getConfig } = require("./config");
+const { answerQuestion } = require("./services/ask-service");
 
 const HOST = "127.0.0.1";
-const PORT = Number(process.env.PORT || 3000);
+const config = getConfig();
+const PORT = config.port;
 
 function sendJson(response, statusCode, payload) {
   response.writeHead(statusCode, { "Content-Type": "application/json" });
@@ -50,22 +52,12 @@ function validateAskRequest(payload) {
   return errors;
 }
 
-function findBestDocument(question) {
-  const normalizedQuestion = question.trim().toLowerCase();
-
-  return knowledgeBase.find((document) => {
-    return (
-      normalizedQuestion.includes(document.id) ||
-      normalizedQuestion.includes(document.title.toLowerCase().replace(" overview", ""))
-    );
-  });
-}
-
 const server = http.createServer((request, response) => {
   if (request.method === "GET" && request.url === "/health") {
     sendJson(response, 200, {
       status: "ok",
-      service: "pf-llm-testing-app"
+      service: "pf-llm-testing-app",
+      llmProvider: config.llmProvider
     });
     return;
   }
@@ -83,26 +75,25 @@ const server = http.createServer((request, response) => {
           return;
         }
 
-        const sourceDocument = findBestDocument(payload.question);
-
-        if (!sourceDocument) {
-          sendJson(response, 404, {
-            error: "No matching document found"
-          });
-          return;
-        }
-
-        sendJson(response, 200, {
-          question: payload.question,
-          answer: sourceDocument.content,
-          source: {
-            id: sourceDocument.id,
-            title: sourceDocument.title
+        return answerQuestion(payload.question, config).then((result) => {
+          if (!result) {
+            sendJson(response, 404, {
+              error: "No matching document found"
+            });
+            return;
           }
+
+          sendJson(response, 200, {
+            question: payload.question,
+            answer: result.answer,
+            source: result.source,
+            providerUsed: result.providerUsed,
+            fallbackReason: result.fallbackReason || null
+          });
         });
       })
       .catch((error) => {
-        sendJson(response, 400, {
+        sendJson(response, error.statusCode || 400, {
           error: error.message
         });
       });

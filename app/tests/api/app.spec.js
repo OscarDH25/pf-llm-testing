@@ -12,7 +12,8 @@ test("GET /health returns service status", async ({ request }) => {
   expect(response.status()).toBe(200);
   expect(body).toEqual({
     status: "ok",
-    service: "pf-llm-testing-app"
+    service: "pf-llm-testing-app",
+    llmProvider: "mock"
   });
 });
 
@@ -39,7 +40,9 @@ test("POST /ask returns a matching answer for Docker", async ({ request }) => {
     source: {
       id: "docker",
       title: "Docker overview"
-    }
+    },
+    providerUsed: "mock",
+    fallbackReason: null
   });
 });
 
