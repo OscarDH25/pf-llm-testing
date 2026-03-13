@@ -83,3 +83,7 @@ npm run test:api
 ```
 
 Playwright starts the local backend automatically for the API suite.
+
+## CI
+
+The repository includes a GitHub Actions workflow that installs dependencies and runs the API test suite automatically on pushes and pull requests.
