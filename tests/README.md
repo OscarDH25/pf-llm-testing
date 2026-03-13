@@ -41,3 +41,7 @@ npm run test:api
 ```
 
 Playwright starts the local API automatically for this suite.
+
+## CI execution
+
+This suite is also executed in GitHub Actions through `.github/workflows/api-tests.yml`.
