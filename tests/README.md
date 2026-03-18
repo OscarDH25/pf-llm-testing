@@ -5,11 +5,11 @@ This folder contains the automated test suites for the project.
 Current areas:
 
 - API testing
+- LLM evaluation
 
 Planned later:
 
 - end-to-end validation
-- LLM evaluation
 - regression checks
 
 ## API tests
@@ -49,3 +49,23 @@ This suite is also executed in GitHub Actions through `.github/workflows/api-tes
 At the moment the suite runs against the `mock` provider configuration, even if local manual development uses `ollama`.
 
 The mocked responses now include provider metadata so the suite can verify which provider handled the request.
+
+## LLM evaluation
+
+The repository also includes a first evaluation script under:
+
+```bash
+app/evals
+```
+
+This layer does not replace API tests. Its job is different:
+
+- call the real API
+- inspect the generated answer
+- apply simple heuristic checks over a controlled dataset
+
+Run from the `app` folder:
+
+```bash
+npm run eval:ask
+```

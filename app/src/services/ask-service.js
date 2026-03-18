@@ -99,6 +99,7 @@ async function answerQuestion(question, config) {
     try {
       return await answerWithOllamaProvider(question, config);
     } catch (error) {
+      // Provider failures should not block local development when a deterministic fallback is available.
       const canFallback =
         error.code === "ollama_request_failed" ||
         error.code === "missing_message_content";
