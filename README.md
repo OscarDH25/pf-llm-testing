@@ -17,7 +17,13 @@ The goal of this repository is to build a small but realistic AI system and vali
 
 ## Current status
 
-The repository is currently in the project definition phase. The first milestone is to define a realistic MVP, the initial architecture, and the development plan before implementation starts.
+The repository already includes:
+
+- a small HTTP API with `GET /health` and `POST /ask`
+- a fixed knowledge base used for deterministic testing
+- a real local LLM provider through Ollama
+- a Playwright API test suite
+- a GitHub Actions workflow for automated API checks
 
 ## Working model
 
@@ -39,7 +45,7 @@ The repository is currently in the project definition phase. The first milestone
 
 ## Environment configuration
 
-The application supports a provider-based setup for future LLM integration.
+The application supports a provider-based setup.
 
 Current provider modes:
 
@@ -72,6 +78,28 @@ ollama run qwen2.5:3b
 ```
 
 If the Ollama provider is unavailable, the application falls back to the local `mock` provider so the API remains usable during development.
+
+## Running on another machine
+
+The project can be reproduced on any machine that has:
+
+- Node.js installed
+- Ollama installed
+- the configured local model pulled, for example `qwen2.5:3b`
+
+After cloning the repository:
+
+```bash
+cd app
+copy .env.example .env
+npm install
+```
+
+Then make sure Ollama is running locally and start the API with:
+
+```bash
+npm start
+```
 
 ## Local run
 
@@ -110,7 +138,7 @@ Invoke-WebRequest -UseBasicParsing `
 
 ## Current testing status
 
-The repository now includes a first API test foundation with Playwright for the existing endpoints.
+The repository includes an API suite with Playwright for the existing endpoints.
 
 Run the current API test suite from the `app` folder:
 
