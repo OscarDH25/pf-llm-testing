@@ -148,6 +148,31 @@ npm run test:api
 
 Playwright starts the local backend automatically for the API suite.
 
+## First LLM evaluation layer
+
+The repository now also includes a first response-evaluation script for `POST /ask`.
+
+This evaluation layer is separate from API contract tests:
+
+- Playwright checks that the API behaves correctly
+- the eval script checks whether the answer content looks acceptable for a small controlled dataset
+
+Run from the `app` folder after starting the API:
+
+```bash
+npm run eval:ask
+```
+
+This command expects the API to already be running locally.
+
+The same evaluation dataset can also run through Playwright:
+
+```bash
+npm run test:llm
+```
+
+This option starts the API automatically and is the most convenient way to execute the current LLM evaluation suite.
+
 ## CI
 
 The repository includes a GitHub Actions workflow that installs dependencies and runs the API test suite automatically on pushes and pull requests.

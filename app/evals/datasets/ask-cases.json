@@ -1,0 +1,35 @@
+[
+  {
+    "id": "docker-basics",
+    "question": "What is Docker?",
+    "expectedStatus": 200,
+    "expectedSourceId": "docker",
+    "requiredTerms": ["docker", "containers"],
+    "optionalTerms": ["dependencies", "environments"],
+    "forbiddenTerms": ["kubernetes"]
+  },
+  {
+    "id": "playwright-basics",
+    "question": "What is Playwright?",
+    "expectedStatus": 200,
+    "expectedSourceId": "playwright",
+    "requiredTerms": ["playwright", "browser"],
+    "optionalTerms": ["testing", "automation", "cross-browser"],
+    "forbiddenTerms": ["docker"]
+  },
+  {
+    "id": "github-actions-basics",
+    "question": "What is GitHub Actions?",
+    "expectedStatus": 200,
+    "expectedSourceId": "github-actions",
+    "requiredTerms": ["github actions", "automation"],
+    "optionalTerms": ["workflow", "pipeline", "ci"],
+    "forbiddenTerms": ["selenium"]
+  },
+  {
+    "id": "unknown-topic",
+    "question": "What is Kubernetes?",
+    "expectedStatus": 404,
+    "expectedError": "No matching document found"
+  }
+]

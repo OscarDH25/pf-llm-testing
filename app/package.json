@@ -6,7 +6,9 @@
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
-    "test:api": "playwright test"
+    "test:api": "playwright test",
+    "test:llm": "playwright test --config playwright.llm.config.js",
+    "eval:ask": "node evals/run-ask-evals.js"
   },
   "dependencies": {
     "dotenv": "^16.6.1"
