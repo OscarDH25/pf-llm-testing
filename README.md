@@ -163,6 +163,16 @@ Run from the `app` folder after starting the API:
 npm run eval:ask
 ```
 
+This command expects the API to already be running locally.
+
+The same evaluation dataset can also run through Playwright:
+
+```bash
+npm run test:llm
+```
+
+This option starts the API automatically and is the most convenient way to execute the current LLM evaluation suite.
+
 ## CI
 
 The repository includes a GitHub Actions workflow that installs dependencies and runs the API test suite automatically on pushes and pull requests.

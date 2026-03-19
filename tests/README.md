@@ -69,3 +69,9 @@ Run from the `app` folder:
 ```bash
 npm run eval:ask
 ```
+
+If you want the same evaluation cases to run under Playwright as a test suite:
+
+```bash
+npm run test:llm
+```

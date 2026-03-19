@@ -16,11 +16,21 @@ Current checks include:
 - required terms present in the answer
 - forbidden terms absent from the answer
 
-Run from the `app` folder after starting the API:
+Run from the `app` folder after starting the API manually:
 
 ```bash
 npm run eval:ask
 ```
+
+This command expects the API to already be running on `http://127.0.0.1:3000` unless `EVAL_API_BASE_URL` is overridden.
+
+If you want to execute the same evaluation rules through Playwright:
+
+```bash
+npm run test:llm
+```
+
+This option is more self-contained because Playwright starts the API automatically before the suite runs.
 
 By default the script targets:
 

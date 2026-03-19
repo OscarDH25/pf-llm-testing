@@ -1,31 +1,27 @@
-const fs = require("node:fs");
-const path = require("node:path");
+const { evaluateAskCase, loadAskEvalDataset } = require("./ask-eval-utils");
 
-const datasetPath = path.join(__dirname, "datasets", "ask-cases.json");
-const dataset = JSON.parse(fs.readFileSync(datasetPath, "utf8"));
+const dataset = loadAskEvalDataset();
 
 const API_BASE_URL = process.env.EVAL_API_BASE_URL || "http://127.0.0.1:3000";
 
-function normalizeText(value) {
-  return String(value || "").trim().toLowerCase();
-}
-
-function includesTerm(text, term) {
-  return normalizeText(text).includes(normalizeText(term));
-}
-
-function collectMatchedTerms(answer, terms) {
-  return terms.filter((term) => includesTerm(answer, term));
-}
-
 async function askQuestion(question) {
-  const response = await fetch(`${API_BASE_URL}/ask`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ question })
-  });
+  let response;
+
+  try {
+    response = await fetch(`${API_BASE_URL}/ask`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ question })
+    });
+  } catch (error) {
+    const connectionError = new Error(
+      `Could not reach ${API_BASE_URL}. Start the API first with 'npm start' or run 'npm run test:llm' if you want Playwright to start it automatically.`
+    );
+    connectionError.cause = error;
+    throw connectionError;
+  }
 
   let body = null;
 
@@ -41,98 +37,6 @@ async function askQuestion(question) {
   return {
     status: response.status,
     body
-  };
-}
-
-function evaluateSuccessCase(testCase, result) {
-  // These checks are intentionally heuristic: they give a first quality signal without needing a second LLM judge.
-  const answer = result.body.answer || "";
-  const requiredTerms = testCase.requiredTerms || [];
-  const optionalTerms = testCase.optionalTerms || [];
-  const forbiddenTerms = testCase.forbiddenTerms || [];
-
-  const matchedRequiredTerms = collectMatchedTerms(answer, requiredTerms);
-  const matchedOptionalTerms = collectMatchedTerms(answer, optionalTerms);
-  const matchedForbiddenTerms = collectMatchedTerms(answer, forbiddenTerms);
-
-  const checks = [
-    {
-      name: "status_is_200",
-      passed: result.status === 200
-    },
-    {
-      name: "answer_is_not_empty",
-      passed: normalizeText(answer).length > 0
-    },
-    {
-      name: "source_matches_expected_document",
-      passed: result.body.source?.id === testCase.expectedSourceId
-    },
-    {
-      name: "all_required_terms_are_present",
-      passed: matchedRequiredTerms.length === requiredTerms.length,
-      details: {
-        requiredTerms,
-        matchedRequiredTerms
-      }
-    },
-    {
-      name: "forbidden_terms_are_absent",
-      passed: matchedForbiddenTerms.length === 0,
-      details: {
-        forbiddenTerms,
-        matchedForbiddenTerms
-      }
-    }
-  ];
-
-  const score = {
-    requiredTermsMatched: `${matchedRequiredTerms.length}/${requiredTerms.length}`,
-    optionalTermsMatched: `${matchedOptionalTerms.length}/${optionalTerms.length}`
-  };
-
-  return {
-    passed: checks.every((check) => check.passed),
-    checks,
-    score,
-    providerUsed: result.body.providerUsed || null,
-    fallbackReason: result.body.fallbackReason || null
-  };
-}
-
-function evaluateErrorCase(testCase, result) {
-  const checks = [
-    {
-      name: "status_matches_expected_error",
-      passed: result.status === testCase.expectedStatus
-    },
-    {
-      name: "error_message_matches_expected_error",
-      passed: result.body.error === testCase.expectedError
-    }
-  ];
-
-  return {
-    passed: checks.every((check) => check.passed),
-    checks,
-    providerUsed: null,
-    fallbackReason: null
-  };
-}
-
-async function evaluateCase(testCase) {
-  const result = await askQuestion(testCase.question);
-  const evaluation =
-    testCase.expectedStatus === 200
-      ? evaluateSuccessCase(testCase, result)
-      : evaluateErrorCase(testCase, result);
-
-  return {
-    id: testCase.id,
-    question: testCase.question,
-    status: result.status,
-    responseBody: result.body,
-    ...evaluation
   };
 }
 
@@ -170,7 +74,8 @@ async function main() {
   const results = [];
 
   for (const testCase of dataset) {
-    const result = await evaluateCase(testCase);
+    const apiResult = await askQuestion(testCase.question);
+    const result = evaluateAskCase(testCase, apiResult);
     results.push(result);
     printCaseResult(result);
   }
@@ -191,5 +96,10 @@ async function main() {
 main().catch((error) => {
   console.error("Evaluation run failed");
   console.error(error.message);
+
+  if (error.cause?.message) {
+    console.error(`Cause: ${error.cause.message}`);
+  }
+
   process.exitCode = 1;
 });
