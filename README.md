@@ -157,6 +157,15 @@ This evaluation layer is separate from API contract tests:
 - Playwright checks that the API behaves correctly
 - the eval script checks whether the answer content looks acceptable for a small controlled dataset
 
+The current heuristic checks now cover:
+
+- expected provider used
+- expected source document
+- minimum answer length
+- required terms
+- optional-term threshold
+- forbidden terms
+
 Run from the `app` folder after starting the API:
 
 ```bash
