@@ -64,6 +64,15 @@ This layer does not replace API tests. Its job is different:
 - inspect the generated answer
 - apply simple heuristic checks over a controlled dataset
 
+Current heuristics include:
+
+- expected provider used
+- expected source document
+- minimum answer length
+- required terms
+- minimum optional-term coverage
+- forbidden terms
+
 Run from the `app` folder:
 
 ```bash

@@ -12,8 +12,11 @@ Current checks include:
 
 - expected HTTP status
 - non-empty answer for success cases
+- expected provider used
 - expected source document
+- minimum answer length
 - required terms present in the answer
+- minimum optional terms present when configured
 - forbidden terms absent from the answer
 
 Run from the `app` folder after starting the API manually:

@@ -2,6 +2,7 @@ module.exports = {
   testDir: "./tests/llm",
   timeout: 30_000,
   retries: 0,
+  reporter: [["./tests/llm/llm-reporter.js"]],
   use: {
     baseURL: "http://127.0.0.1:3200"
   },

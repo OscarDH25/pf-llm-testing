@@ -1,5 +1,9 @@
-const { test, expect } = require("@playwright/test");
-const { evaluateAskCase, loadAskEvalDataset } = require("../../evals/ask-eval-utils");
+const { test } = require("@playwright/test");
+const {
+  evaluateAskCase,
+  formatEvaluationFailure,
+  loadAskEvalDataset
+} = require("../../evals/ask-eval-utils");
 
 const dataset = loadAskEvalDataset();
 
@@ -24,6 +28,17 @@ for (const testCase of dataset) {
       });
     });
 
-    expect(evaluation.passed, JSON.stringify(evaluation, null, 2)).toBe(true);
+    await test.step(`Assert evaluation result for ${testCase.id}`, async () => {
+      if (!evaluation.passed) {
+        const failureMessage = formatEvaluationFailure(evaluation);
+
+        test.info().annotations.push({
+          type: "evaluation",
+          description: failureMessage
+        });
+
+        throw new Error(failureMessage);
+      }
+    });
   });
 }
