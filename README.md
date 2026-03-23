@@ -61,6 +61,7 @@ copy .env.example .env
 Then configure the local provider in `app/.env`:
 
 ```env
+HOST=127.0.0.1
 LLM_PROVIDER=ollama
 OLLAMA_BASE_URL=http://127.0.0.1:11434
 OLLAMA_MODEL=qwen2.5:3b
@@ -85,6 +86,7 @@ The project can be reproduced on any machine that has:
 
 - Node.js installed
 - Ollama installed
+- Docker Desktop installed if you want to run the API in a container
 - the configured local model pulled, for example `qwen2.5:3b`
 
 After cloning the repository:
@@ -134,6 +136,47 @@ Invoke-WebRequest -UseBasicParsing `
   -Uri http://127.0.0.1:3000/ask `
   -ContentType "application/json" `
   -Body $body
+```
+
+## Docker run
+
+The repository now also includes a minimal container setup for the API.
+
+Build the image from the repository root:
+
+```bash
+docker build -t pf-llm-testing-app ./app
+```
+
+Run the container with the mock provider:
+
+```bash
+docker run --rm -p 3000:3000 -e HOST=0.0.0.0 -e LLM_PROVIDER=mock pf-llm-testing-app
+```
+
+If you want the container to call a local Ollama instance running on the host machine, use:
+
+```bash
+docker run --rm -p 3000:3000 ^
+  -e HOST=0.0.0.0 ^
+  -e LLM_PROVIDER=ollama ^
+  -e OLLAMA_BASE_URL=http://host.docker.internal:11434 ^
+  -e OLLAMA_MODEL=qwen2.5:3b ^
+  pf-llm-testing-app
+```
+
+You can also start the same setup with Docker Compose from the repository root:
+
+```bash
+docker compose up --build
+```
+
+The included `compose.yaml` is configured for a local Ollama instance exposed through `host.docker.internal`.
+
+If your local Docker environment cannot pull `node:20-alpine` from Docker Hub but already has `nginx:alpine` cached, you can use the local fallback image definition:
+
+```bash
+docker build -f ./app/Dockerfile.local -t pf-llm-testing-app-local ./app
 ```
 
 ## Current testing status

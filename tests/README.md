@@ -6,6 +6,7 @@ Current areas:
 
 - API testing
 - LLM evaluation
+- container-ready local execution support
 
 Planned later:
 
