@@ -2,8 +2,8 @@ const http = require("node:http");
 const { getConfig } = require("./config");
 const { answerQuestion } = require("./services/ask-service");
 
-const HOST = "127.0.0.1";
 const config = getConfig();
+const HOST = config.host;
 const PORT = config.port;
 
 function sendJson(response, statusCode, payload) {

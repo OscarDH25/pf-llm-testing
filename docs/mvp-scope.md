@@ -29,6 +29,12 @@ The MVP will include:
 - Docker support for local execution
 - A CI workflow that runs the baseline checks
 
+Current implementation status:
+
+- API, Playwright API tests, Ollama integration, CI, and the first LLM evaluation layer are already in place.
+- Docker support is now part of the repository setup.
+- Kubernetes remains a later-stage extension after the local baseline is stable.
+
 ## Use case selected for the MVP
 
 The first use case will be a question-answering API over a fixed set of documents.
