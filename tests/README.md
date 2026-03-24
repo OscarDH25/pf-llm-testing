@@ -45,11 +45,13 @@ Playwright starts the local API automatically for this suite.
 
 ## CI execution
 
-This suite is also executed in GitHub Actions through `.github/workflows/api-tests.yml`.
+GitHub Actions now runs the following baseline checks through `.github/workflows/api-tests.yml`:
 
-At the moment the suite runs against the `mock` provider configuration, even if local manual development uses `ollama`.
+- Playwright API tests
+- deterministic LLM evaluation against the `mock` provider
+- Docker image build validation
 
-The mocked responses now include provider metadata so the suite can verify which provider handled the request.
+The API suite and the CI LLM suite both run against deterministic provider settings, even if local manual development uses `ollama`.
 
 ## LLM evaluation
 
@@ -84,4 +86,10 @@ If you want the same evaluation cases to run under Playwright as a test suite:
 
 ```bash
 npm run test:llm
+```
+
+If you want to run the deterministic CI-oriented LLM suite locally:
+
+```bash
+npm run test:llm:mock
 ```

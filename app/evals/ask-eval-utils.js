@@ -1,9 +1,9 @@
 const fs = require("node:fs");
 const path = require("node:path");
 
-const datasetPath = path.join(__dirname, "datasets", "ask-cases.json");
-
 function loadAskEvalDataset() {
+  const datasetFileName = process.env.ASK_EVAL_DATASET_FILE || "ask-cases.json";
+  const datasetPath = path.join(__dirname, "datasets", datasetFileName);
   return JSON.parse(fs.readFileSync(datasetPath, "utf8"));
 }
 
