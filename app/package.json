@@ -8,6 +8,7 @@
     "start": "node src/server.js",
     "test:api": "playwright test",
     "test:llm": "playwright test --config playwright.llm.config.js",
+    "test:llm:mock": "playwright test --config playwright.llm.mock.config.js",
     "eval:ask": "node evals/run-ask-evals.js"
   },
   "dependencies": {

@@ -1,0 +1,44 @@
+[
+  {
+    "id": "docker-basics-mock",
+    "question": "What is Docker?",
+    "expectedStatus": 200,
+    "expectedSourceId": "docker",
+    "expectedProviderUsed": "mock",
+    "minimumAnswerWords": 8,
+    "requiredTerms": ["docker", "containers"],
+    "optionalTerms": ["dependencies", "environments"],
+    "minimumOptionalTerms": 1,
+    "forbiddenTerms": ["kubernetes"]
+  },
+  {
+    "id": "playwright-basics-mock",
+    "question": "What is Playwright?",
+    "expectedStatus": 200,
+    "expectedSourceId": "playwright",
+    "expectedProviderUsed": "mock",
+    "minimumAnswerWords": 8,
+    "requiredTerms": ["playwright", "testing"],
+    "optionalTerms": ["chromium", "firefox", "webkit"],
+    "minimumOptionalTerms": 1,
+    "forbiddenTerms": ["docker"]
+  },
+  {
+    "id": "github-actions-basics-mock",
+    "question": "What is GitHub Actions?",
+    "expectedStatus": 200,
+    "expectedSourceId": "github-actions",
+    "expectedProviderUsed": "mock",
+    "minimumAnswerWords": 8,
+    "requiredTerms": ["github actions", "workflows"],
+    "optionalTerms": ["ci/cd", "testing", "deploying"],
+    "minimumOptionalTerms": 1,
+    "forbiddenTerms": ["selenium"]
+  },
+  {
+    "id": "unknown-topic-mock",
+    "question": "What is Kubernetes?",
+    "expectedStatus": 404,
+    "expectedError": "No matching document found"
+  }
+]

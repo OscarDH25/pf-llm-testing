@@ -23,7 +23,7 @@ The repository already includes:
 - a fixed knowledge base used for deterministic testing
 - a real local LLM provider through Ollama
 - a Playwright API test suite
-- a GitHub Actions workflow for automated API checks
+- a GitHub Actions workflow for API tests, deterministic LLM checks, and Docker build validation
 
 ## Working model
 
@@ -225,6 +225,18 @@ npm run test:llm
 
 This option starts the API automatically and is the most convenient way to execute the current LLM evaluation suite.
 
+For a deterministic local run that mirrors CI, use:
+
+```bash
+npm run test:llm:mock
+```
+
+This variant runs the same evaluation layer against the `mock` provider with a CI-friendly dataset.
+
 ## CI
 
-The repository includes a GitHub Actions workflow that installs dependencies and runs the API test suite automatically on pushes and pull requests.
+The repository includes a GitHub Actions workflow that now runs three baseline checks automatically on pushes and pull requests:
+
+- Playwright API tests
+- deterministic LLM evaluation with the `mock` provider
+- Docker image build validation
