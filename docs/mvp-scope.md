@@ -34,6 +34,7 @@ Current implementation status:
 - API, Playwright API tests, Ollama integration, CI, and the first LLM evaluation layer are already in place.
 - Docker support is now part of the repository setup.
 - CI coverage now extends beyond API checks to include deterministic LLM evaluation and Docker image build validation.
+- A first Kubernetes deployment foundation is now part of the repository for local learning and demonstration.
 - Kubernetes remains a later-stage extension after the local baseline is stable.
 
 ## Use case selected for the MVP

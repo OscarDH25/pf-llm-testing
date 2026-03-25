@@ -7,6 +7,7 @@ Current areas:
 - API testing
 - LLM evaluation
 - container-ready local execution support
+- deployment-ready local setup through Docker and Kubernetes manifests
 
 Planned later:
 
