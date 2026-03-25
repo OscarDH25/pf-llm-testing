@@ -179,6 +179,37 @@ If your local Docker environment cannot pull `node:20-alpine` from Docker Hub bu
 docker build -f ./app/Dockerfile.local -t pf-llm-testing-app-local ./app
 ```
 
+## Kubernetes foundation
+
+The repository now also includes a first local Kubernetes setup under `k8s/`.
+
+This initial version is intentionally simple:
+
+- one namespace
+- one config map
+- one deployment
+- one service
+- readiness and liveness probes against `/health`
+
+The default Kubernetes runtime uses the `mock` provider so the deployment stays reproducible without depending on a running Ollama instance.
+
+Typical local flow:
+
+```bash
+docker build -t pf-llm-testing-app ./app
+kubectl apply -f k8s/namespace.yaml
+kubectl apply -f k8s/configmap.yaml
+kubectl apply -f k8s/deployment.yaml
+kubectl apply -f k8s/service.yaml
+kubectl port-forward -n pf-llm-testing service/pf-llm-testing-service 3000:3000
+```
+
+More details are documented in:
+
+- `k8s/README.md`
+
+If you use Docker Desktop Kubernetes, make sure Kubernetes is enabled first and that `kubectl config current-context` returns `docker-desktop` before applying the manifests.
+
 ## Current testing status
 
 The repository includes an API suite with Playwright for the existing endpoints.
