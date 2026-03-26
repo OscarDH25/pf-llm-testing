@@ -15,6 +15,15 @@ The default configuration uses the `mock` provider on purpose so the deployment 
 
 This setup has already been validated against Docker Desktop Kubernetes with the `docker-desktop` context.
 
+If you want a shorter workflow from the repository root, you can use:
+
+```powershell
+.\scripts\k8s-deploy-local.ps1
+.\scripts\k8s-port-forward.ps1
+```
+
+The deploy script now fails early with a clearer message if Docker Desktop is down or if the current Kubernetes context is not reachable.
+
 Build the application image from the repository root:
 
 ```bash
