@@ -210,6 +210,44 @@ More details are documented in:
 
 If you use Docker Desktop Kubernetes, make sure Kubernetes is enabled first and that `kubectl config current-context` returns `docker-desktop` before applying the manifests.
 
+## Local deployment scripts
+
+The repository now also includes PowerShell helper scripts under `scripts/` to reduce repetitive setup steps.
+
+Useful examples from the repository root:
+
+Run the Docker version locally with the mock provider:
+
+```powershell
+.\scripts\docker-run-local.ps1
+```
+
+Run the Docker version locally with Ollama:
+
+```powershell
+.\scripts\docker-run-local.ps1 -Provider ollama
+```
+
+Build and deploy the Kubernetes version for the current local context:
+
+```powershell
+.\scripts\k8s-deploy-local.ps1
+```
+
+This script checks that Docker and the current Kubernetes context are reachable before applying manifests.
+
+Open local access to the Kubernetes service:
+
+```powershell
+.\scripts\k8s-port-forward.ps1
+```
+
+Delete the local Kubernetes namespace when you want to clean up:
+
+```powershell
+.\scripts\k8s-delete-local.ps1
+```
+
 ## Current testing status
 
 The repository includes an API suite with Playwright for the existing endpoints.
