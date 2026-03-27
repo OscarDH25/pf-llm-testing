@@ -36,6 +36,7 @@ Current implementation status:
 - CI coverage now extends beyond API checks to include deterministic LLM evaluation and Docker image build validation.
 - A first Kubernetes deployment foundation is now part of the repository for local learning and demonstration.
 - Local helper scripts are now part of the setup so the project is easier to run and demonstrate.
+- The setup is moving toward a single-entry local workflow so the finished project is easier to operate.
 - Kubernetes remains a later-stage extension after the local baseline is stable.
 
 ## Use case selected for the MVP

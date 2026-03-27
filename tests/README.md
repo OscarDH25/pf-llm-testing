@@ -9,6 +9,7 @@ Current areas:
 - container-ready local execution support
 - deployment-ready local setup through Docker and Kubernetes manifests
 - helper scripts for repeatable local deployment flows
+- unified local entrypoints for common execution modes
 
 Planned later:
 
