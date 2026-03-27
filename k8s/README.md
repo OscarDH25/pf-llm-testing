@@ -18,11 +18,18 @@ This setup has already been validated against Docker Desktop Kubernetes with the
 If you want a shorter workflow from the repository root, you can use:
 
 ```powershell
-.\scripts\k8s-deploy-local.ps1
+.\scripts\dev-up.ps1 -Mode k8s
 .\scripts\k8s-port-forward.ps1
 ```
 
 The deploy script now fails early with a clearer message if Docker Desktop is down or if the current Kubernetes context is not reachable.
+It also waits for the deployment rollout so you do not need to guess when the pod is ready.
+The port-forward helper now uses local port `3001` by default to avoid common conflicts with local runs on `3000`.
+
+Before running `k8s-port-forward`, make sure nothing else is already listening on local port `3000`, such as:
+
+- `npm start`
+- `.\scripts\dev-up.ps1 -Mode docker`
 
 Build the application image from the repository root:
 
@@ -71,7 +78,7 @@ kubectl get all -n pf-llm-testing
 To test the API locally through the service:
 
 ```bash
-kubectl port-forward -n pf-llm-testing service/pf-llm-testing-service 3000:3000
+kubectl port-forward -n pf-llm-testing service/pf-llm-testing-service 3001:3000
 ```
 
 Then call:
@@ -84,7 +91,7 @@ POST /ask
 PowerShell examples:
 
 ```powershell
-Invoke-WebRequest -UseBasicParsing http://127.0.0.1:3000/health
+Invoke-WebRequest -UseBasicParsing http://127.0.0.1:3001/health
 ```
 
 ```powershell
@@ -94,7 +101,7 @@ $body = @{
 
 Invoke-WebRequest -UseBasicParsing `
   -Method POST `
-  -Uri http://127.0.0.1:3000/ask `
+  -Uri http://127.0.0.1:3001/ask `
   -ContentType "application/json" `
   -Body $body
 ```

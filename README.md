@@ -214,27 +214,44 @@ If you use Docker Desktop Kubernetes, make sure Kubernetes is enabled first and 
 
 The repository now also includes PowerShell helper scripts under `scripts/` to reduce repetitive setup steps.
 
+The main entrypoint is now:
+
+```powershell
+.\scripts\dev-up.ps1 -Mode local
+.\scripts\dev-up.ps1 -Mode docker
+.\scripts\dev-up.ps1 -Mode k8s
+```
+
+This keeps the most common ways of starting the project behind one consistent command shape.
+
 Useful examples from the repository root:
+
+Run the API directly with Node.js:
+
+```powershell
+.\scripts\dev-up.ps1 -Mode local
+```
 
 Run the Docker version locally with the mock provider:
 
 ```powershell
-.\scripts\docker-run-local.ps1
+.\scripts\dev-up.ps1 -Mode docker
 ```
 
 Run the Docker version locally with Ollama:
 
 ```powershell
-.\scripts\docker-run-local.ps1 -Provider ollama
+.\scripts\dev-up.ps1 -Mode docker -Provider ollama
 ```
 
 Build and deploy the Kubernetes version for the current local context:
 
 ```powershell
-.\scripts\k8s-deploy-local.ps1
+.\scripts\dev-up.ps1 -Mode k8s
 ```
 
-This script checks that Docker and the current Kubernetes context are reachable before applying manifests.
+Before using `k8s-port-forward`, stop any local Node.js process or Docker container already bound to port `3000`.
+The Kubernetes deploy flow now waits for the deployment rollout to finish before returning control.
 
 Open local access to the Kubernetes service:
 
@@ -242,10 +259,19 @@ Open local access to the Kubernetes service:
 .\scripts\k8s-port-forward.ps1
 ```
 
+This command now waits for the pod to become `Ready` before opening the port-forward.
+By default it uses local port `3001` to avoid conflicts with local Node.js or Docker runs that usually use `3000`.
+
 Delete the local Kubernetes namespace when you want to clean up:
 
 ```powershell
-.\scripts\k8s-delete-local.ps1
+.\scripts\dev-down.ps1 -Mode k8s
+```
+
+If you want to stop the Docker local container started through the helper flow:
+
+```powershell
+.\scripts\dev-down.ps1 -Mode docker
 ```
 
 ## Current testing status

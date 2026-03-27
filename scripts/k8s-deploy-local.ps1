@@ -58,5 +58,8 @@ kubectl apply -f "$root/k8s/configmap.yaml"
 kubectl apply -f "$root/k8s/deployment.yaml"
 kubectl apply -f "$root/k8s/service.yaml"
 
+Write-Host "Waiting for deployment rollout..."
+kubectl rollout status -n $Namespace deployment/pf-llm-testing-app --timeout=120s
+
 Write-Host "Deployment status:"
 kubectl get all -n $Namespace
