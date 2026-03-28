@@ -10,6 +10,7 @@ Current areas:
 - deployment-ready local setup through Docker and Kubernetes manifests
 - helper scripts for repeatable local deployment flows
 - unified local entrypoints for common execution modes
+- unified smoke validation entrypoint for the common execution modes
 
 Planned later:
 

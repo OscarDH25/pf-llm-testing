@@ -37,6 +37,7 @@ Current implementation status:
 - A first Kubernetes deployment foundation is now part of the repository for local learning and demonstration.
 - Local helper scripts are now part of the setup so the project is easier to run and demonstrate.
 - The setup is moving toward a single-entry local workflow so the finished project is easier to operate.
+- The repository now also exposes a matching validation command so deployment and verification follow the same pattern.
 - Kubernetes remains a later-stage extension after the local baseline is stable.
 
 ## Use case selected for the MVP
