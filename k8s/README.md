@@ -20,6 +20,7 @@ If you want a shorter workflow from the repository root, you can use:
 ```powershell
 .\scripts\dev-up.ps1 -Mode k8s
 .\scripts\k8s-port-forward.ps1
+.\scripts\dev-test.ps1 -Mode k8s
 ```
 
 The deploy script now fails early with a clearer message if Docker Desktop is down or if the current Kubernetes context is not reachable.

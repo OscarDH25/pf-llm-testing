@@ -224,6 +224,14 @@ The main entrypoint is now:
 
 This keeps the most common ways of starting the project behind one consistent command shape.
 
+The matching validation entrypoint is:
+
+```powershell
+.\scripts\dev-test.ps1 -Mode local
+.\scripts\dev-test.ps1 -Mode docker
+.\scripts\dev-test.ps1 -Mode k8s
+```
+
 Useful examples from the repository root:
 
 Run the API directly with Node.js:
@@ -272,6 +280,20 @@ If you want to stop the Docker local container started through the helper flow:
 
 ```powershell
 .\scripts\dev-down.ps1 -Mode docker
+```
+
+Validate the currently running mode with smoke checks:
+
+```powershell
+.\scripts\dev-test.ps1 -Mode local
+.\scripts\dev-test.ps1 -Mode docker
+.\scripts\dev-test.ps1 -Mode k8s
+```
+
+If you also want the baseline Playwright suites after the smoke checks:
+
+```powershell
+.\scripts\dev-test.ps1 -Mode local -IncludeSuites
 ```
 
 ## Current testing status
