@@ -15,6 +15,39 @@ The goal of this repository is to build a small but realistic AI system and vali
 - Containerized development workflow
 - local Kubernetes deployment workflow
 
+## Quick start
+
+From the repository root:
+
+```powershell
+.\scripts\dev-up.ps1 -Mode local
+.\scripts\dev-test.ps1 -Mode local
+```
+
+For Docker:
+
+```powershell
+.\scripts\dev-up.ps1 -Mode docker
+.\scripts\dev-test.ps1 -Mode docker
+```
+
+For Kubernetes:
+
+```powershell
+.\scripts\dev-up.ps1 -Mode k8s
+.\scripts\k8s-port-forward.ps1
+.\scripts\dev-test.ps1 -Mode k8s
+```
+
+## Tech stack
+
+- Application: Node.js
+- API tests: Playwright
+- LLM evaluation: Node.js scripts and Playwright
+- Containerization: Docker
+- CI: GitHub Actions
+- Local orchestration: Kubernetes
+
 ## Current status
 
 The repository already includes:
