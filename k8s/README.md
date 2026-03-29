@@ -27,11 +27,6 @@ The deploy script now fails early with a clearer message if Docker Desktop is do
 It also waits for the deployment rollout so you do not need to guess when the pod is ready.
 The port-forward helper now uses local port `3001` by default to avoid common conflicts with local runs on `3000`.
 
-Before running `k8s-port-forward`, make sure nothing else is already listening on local port `3000`, such as:
-
-- `npm start`
-- `.\scripts\dev-up.ps1 -Mode docker`
-
 Build the application image from the repository root:
 
 ```bash

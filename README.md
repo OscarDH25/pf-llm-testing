@@ -9,11 +9,11 @@ The goal of this repository is to build a small but realistic AI system and vali
 ## What this project aims to demonstrate
 
 - QA automation for AI-powered systems
-- API and end-to-end testing
+- API testing with Playwright
 - LLM response evaluation and regression testing
 - CI/CD integration
 - Containerized development workflow
-- Kubernetes readiness for later stages
+- local Kubernetes deployment workflow
 
 ## Current status
 
@@ -23,6 +23,9 @@ The repository already includes:
 - a fixed knowledge base used for deterministic testing
 - a real local LLM provider through Ollama
 - a Playwright API test suite
+- a Playwright-based deterministic LLM evaluation suite
+- unified local scripts to start and validate the project
+- a local Kubernetes deployment foundation
 - a GitHub Actions workflow for API tests, deterministic LLM checks, and Docker build validation
 
 ## Working model
@@ -201,7 +204,7 @@ kubectl apply -f k8s/namespace.yaml
 kubectl apply -f k8s/configmap.yaml
 kubectl apply -f k8s/deployment.yaml
 kubectl apply -f k8s/service.yaml
-kubectl port-forward -n pf-llm-testing service/pf-llm-testing-service 3000:3000
+kubectl port-forward -n pf-llm-testing service/pf-llm-testing-service 3001:3000
 ```
 
 More details are documented in:
@@ -258,7 +261,6 @@ Build and deploy the Kubernetes version for the current local context:
 .\scripts\dev-up.ps1 -Mode k8s
 ```
 
-Before using `k8s-port-forward`, stop any local Node.js process or Docker container already bound to port `3000`.
 The Kubernetes deploy flow now waits for the deployment rollout to finish before returning control.
 
 Open local access to the Kubernetes service:
@@ -268,7 +270,7 @@ Open local access to the Kubernetes service:
 ```
 
 This command now waits for the pod to become `Ready` before opening the port-forward.
-By default it uses local port `3001` to avoid conflicts with local Node.js or Docker runs that usually use `3000`.
+By default it uses local port `3001`, so it can coexist more easily with local Node.js or Docker runs that usually use `3000`.
 
 Delete the local Kubernetes namespace when you want to clean up:
 
@@ -298,7 +300,7 @@ If you also want the baseline Playwright suites after the smoke checks:
 
 ## Current testing status
 
-The repository includes an API suite with Playwright for the existing endpoints.
+The repository includes an API suite with Playwright for the existing endpoints and a separate LLM evaluation layer for response quality.
 
 Run the current API test suite from the `app` folder:
 
@@ -308,7 +310,7 @@ npm run test:api
 
 Playwright starts the local backend automatically for the API suite.
 
-## First LLM evaluation layer
+## LLM evaluation layer
 
 The repository now also includes a first response-evaluation script for `POST /ask`.
 
@@ -357,3 +359,14 @@ The repository includes a GitHub Actions workflow that now runs three baseline c
 - Playwright API tests
 - deterministic LLM evaluation with the `mock` provider
 - Docker image build validation
+
+## Current scope boundary
+
+This project is intentionally still a backend-focused QA portfolio piece.
+
+It does not currently include:
+
+- a browser UI
+- a full end-to-end user journey
+- a production-grade Kubernetes deployment
+- multi-model evaluation infrastructure

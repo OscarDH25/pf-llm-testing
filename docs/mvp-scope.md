@@ -13,7 +13,7 @@ Build a first version that is technically solid, realistic for a one-person side
 The MVP must be small enough to finish, but broad enough to demonstrate:
 
 - API automation
-- basic end-to-end validation
+- backend validation through repeatable smoke and API checks
 - LLM evaluation concepts
 - CI execution
 - Docker-based local setup
@@ -36,9 +36,9 @@ Current implementation status:
 - CI coverage now extends beyond API checks to include deterministic LLM evaluation and Docker image build validation.
 - A first Kubernetes deployment foundation is now part of the repository for local learning and demonstration.
 - Local helper scripts are now part of the setup so the project is easier to run and demonstrate.
-- The setup is moving toward a single-entry local workflow so the finished project is easier to operate.
+- The repository now exposes a single-entry local workflow so the finished project is easier to operate.
 - The repository now also exposes a matching validation command so deployment and verification follow the same pattern.
-- Kubernetes remains a later-stage extension after the local baseline is stable.
+- The current Kubernetes setup is intentionally local and educational rather than production-grade.
 
 ## Use case selected for the MVP
 
@@ -63,14 +63,14 @@ To keep the project realistic, the MVP will not include:
 
 Those can be added later once the base system and testing strategy are stable.
 
-## Proposed initial stack
+## Final stack used in the repository
 
 - Application: Node.js
-- API/end-to-end tests: Playwright
-- LLM evaluation layer: Python, pytest, and an LLM evaluation framework
+- API tests: Playwright
+- LLM evaluation layer: Node.js scripts and Playwright
 - Containerization: Docker
 - CI/CD: GitHub Actions
-- Orchestration later: Kubernetes
+- Local orchestration/demo layer: Kubernetes
 
 ## Why this stack
 
@@ -78,18 +78,20 @@ This stack balances learning value with delivery speed.
 
 - Node.js keeps the application layer close to the current skill set
 - Playwright strengthens modern QA automation skills
-- Python and pytest are worth learning because many LLM evaluation tools are strongest there
+- Keeping the evaluation layer in the same runtime reduced scope and kept the project finishable
 - Docker and GitHub Actions are directly useful for portfolio value
-- Kubernetes is important, but it should come after the core testing workflow works
+- Kubernetes adds deployment value once the core testing workflow works
 
-## Planned phases after this branch
+## Delivery summary
 
-1. Create the initial project structure
-2. Implement the first API endpoint and local app setup
-3. Add baseline automated API tests
-4. Add the first LLM evaluation checks
-5. Add CI execution
-6. Extend the project with stronger evals and deployment improvements
+The project has now reached the originally intended MVP shape:
+
+1. A small question-answering API exists and runs locally.
+2. Playwright validates the API contract.
+3. A separate response-quality layer evaluates LLM behavior.
+4. Baseline checks run in CI.
+5. Docker and local Kubernetes flows are both available for demonstration.
+6. Unified scripts reduce setup and validation friction.
 
 ## Definition of done for the MVP
 
