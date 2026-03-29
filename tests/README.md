@@ -14,7 +14,7 @@ Current areas:
 
 Planned later:
 
-- end-to-end validation
+- browser-based end-to-end validation
 - regression checks
 
 ## API tests
